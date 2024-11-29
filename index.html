@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unity Workers and Construction</title>
+  <style>
+    /* Body styling with new blue color theme */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e3a8a, #1d4ed8); /* Deep blue gradient */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Container styling */
+    .container {
+      animation: fadeIn 2s ease-in-out;
+      max-width: 700px;
+    }
+
+    /* Updated heading styling */
+    h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9); /* Light blue gradient */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: slideDown 1.5s ease-in-out;
+    }
+
+    /* Paragraph styling */
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      animation: slideUp 1.5s ease-in-out;
+    }
+
+    /* Timer styling */
+    .launch-time {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      color: #93c5fd; /* Light blue text for timer */
+    }
+
+    /* Feedback button styling */
+    .feedback-button {
+      display: inline-block;
+      padding: 15px 20px;
+      font-size: 1.3rem;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(90deg, #2563eb, #3b82f6); /* Vibrant blue gradient */
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .feedback-button:hover {
+      background: linear-gradient(90deg, #1d4ed8, #2563eb); /* Darker hover gradient */
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .feedback-button:active {
+      transform: scale(1);
+    }
+
+    /* Timestamp section */
+    .details {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #ffffffcc; /* Subtle white */
+      font-weight: bold;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Unity Workers and Construction</h1>
+    <div class="launch-time" id="launch-timer"></div>
+    <p>Your feedback helps us improve and serve you better!</p>
+    <a href="https://forms.gle/your-google-form-link" 
+       target="_blank" 
+       class="feedback-button" 
+       onclick="showTimestamp()">Give Feedback</a>
+    <div class="details">
+      <span id="timestamp"></span>
+    </div>
+  </div>
+
+  <script>
+    // Countdown Timer for Launch
+    const launchDate = new Date('December 2, 2024 23:59:00').getTime();
+    const timerElement = document.getElementById("launch-timer");
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const timeLeft = launchDate - now;
+
+      if (timeLeft > 0) {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        timerElement.textContent = `Launching in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        timerElement.textContent = "We're Live!";
+      }
+    }
+
+    // Update the timer every second
+    setInterval(updateTimer, 1000);
+
+    // Function to display the timestamp when the button is clicked
+    function showTimestamp() {
+      const timestampElement = document.getElementById("timestamp");
+      const now = new Date();
+      const formattedTime = now.toLocaleString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+      timestampElement.innerText = `You clicked the button on: ${formattedTime}`;
+    }
+  </script>
+</body>
+</html>
